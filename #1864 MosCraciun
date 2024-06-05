@@ -1,0 +1,48 @@
+#include <fstream>
+using namespace std;
+
+string name="moscraciun";
+ifstream cin(name+".in");
+ofstream cout(name+".out");
+
+int dil[]={ 0, 0, 1, -1},
+    dic[]={ 1, -1, 0, 0};
+
+short int mat[105][105];
+int n,m,spiridusiicenufacdus=0;
+
+void FILL(int i, int j)
+{
+        if (mat[i][j] == 3) {
+            spiridusiicenufacdus++;
+        }
+        mat[i][j] = 0;
+        for (int d = 0; d < 4; d++) {
+            if(mat[i+dil[d]][j+dic[d]])
+            FILL(i + dil[d], j + dic[d]);
+        }
+}
+
+int main()
+{
+    //0-topit
+    //1-banchiza
+    //2-Mos Craciun
+    //3-spiridus
+    int mos,craciun;
+    cin>>n>>m;
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=m;j++)
+        {
+            cin>>mat[i][j];
+            if(mat[i][j]==2) {
+                mos = i;
+                craciun = j;
+            }
+        }
+    }
+    FILL(mos,craciun);
+    cout<<spiridusiicenufacdus;
+    return 0;
+}
